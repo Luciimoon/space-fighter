@@ -30,7 +30,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 	private Bullets shots;
 	private int alienSpeed;
 	private int round;
-	private int lazerAmmo;
+
 	private Random ran;
 	private int r;
 	private int g;
@@ -40,11 +40,11 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 	private BufferedImage back;
 
 	public OuterSpace() {
-		setBackground(Color.black);
+		setBackground(Color.magenta);
 		keys = new boolean[5];
 		ship = new Ship(350, 400, 100, 100, 3);
 		round = 0;
-		lazerAmmo = 42;
+
 		alienSpeed = 1;
 		alien = true;
 		af1 = false;
@@ -76,7 +76,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 		Graphics graphToBack = back.createGraphics();
 		graphToBack.setColor(Color.BLUE);
 		graphToBack.drawString("StarFighter ", 25, 50);
-		graphToBack.setColor(Color.BLACK);
+		graphToBack.setColor(Color.magenta);
 		graphToBack.fillRect(0, 0, 800, 600);
 		if (!horde.endGame(ship) || round == 0) {
 			if (keys[0] == true) {
@@ -100,13 +100,10 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 				}
 			}
 
-			if (keys[4] == true && fired == true && lazer == false
-					|| (lazer == true && lazerAmmo > 0 && fired == false)) {
+			if (keys[4] == true && fired == true) {
 				shots.add(new Ammo((ship.getX() + ship.getWidth() / 2) - 5,
 						ship.getY() - 5, 5));
-				if (lazer == true) {
-					lazerAmmo--;
-				}
+
 			}
 			shots.drawEmAll(graphToBack);
 			shots.moveEmAll();
@@ -131,7 +128,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 					alienSpeed++;
 				}
 				round++;
-				lazerAmmo = round * 5;
+
 			}
 		} else {
 			graphToBack.setColor(Color.RED);
