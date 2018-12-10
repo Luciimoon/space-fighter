@@ -147,22 +147,22 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 		graphToBack.setColor(Color.WHITE);
 		if (round == 0) {
 			graphToBack.drawString("Warm-Up", 335, 30);
-			graphToBack.drawString("LAZER AMMO: " + lazerAmmo, 550, 30);
+			/*graphToBack.drawString("LAZER AMMO: " + lazerAmmo, 550, 30);
 			if (lazer == true) {
 				graphToBack.drawString("bullets = spacebar | lazer beam = v | 42 = god mode", 110, 530);
 			} else {
 				graphToBack.drawString("bullets = spacebar | lazer beam = v",
 						191, 530);
-			}
+			}*/
 			horde.setScore(0);
 			if (horde.endGame(ship)) {
 				graphToBack.setFont(new Font(Font.SANS_SERIF, 50, 50));
-				graphToBack.drawString("DON'T TOUCH THE ALIENS", 60, 300);
+				graphToBack.drawString("DON'T GET HIT", 60, 300);
 			}
 		} else {
 			graphToBack.setFont(new Font(Font.SANS_SERIF, 24, 24));
 			graphToBack.drawString("SCORE: " + horde.getScore(), 335, 30);
-			graphToBack.drawString("LAZER AMMO: " + lazerAmmo, 550, 30);
+			//graphToBack.drawString("LAZER AMMO: " + lazerAmmo, 550, 30);
 		}
 		graphToBack.setFont(new Font(Font.SANS_SERIF, 24, 24));
 		graphToBack.drawString("ROUND " + round, 15, 30);
