@@ -24,7 +24,7 @@ public class Ammo extends MovingThing {
 	}
 
 	public void setSpeed(int s) {
-		speed = s;
+		speed = s/2;
 	}
 
 	public int getSpeed() {
@@ -32,25 +32,24 @@ public class Ammo extends MovingThing {
 	}
 
 	public void draw(Graphics window) {
-		window.setColor(Color.yellow);
-		window.fillRect(getX(), getY(), 10, 10);
+		window.setColor(Color.blue);
+		window.fillOval(getX(), getY(), 10, 10);
 	}
 
 	public void move(String direction) {
 		if (direction.equals("RIGHT")) {
 			setX(getX() + speed);
-			// setY(getY() + speed);
+
 		}
 		if (direction.equals("LEFT")) {
 			setX(getX() - speed);
-			// setY(getY() + speed);
+
 		}
 		if (direction.equals("UP")) {
-			// setX(getX() - speed);
+			// () - speed);
 			setY(getY() - speed);
 		}
 		if (direction.equals("DOWN")) {
-			// setX(getX() - speed);
 			setY(getY() + speed);
 		}
 	}

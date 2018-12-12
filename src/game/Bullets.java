@@ -19,7 +19,7 @@ public class Bullets {
 		ammo.add(a);
 	}
 
-	public void drawEmAll(Graphics window) {
+	public void draw_bullets(Graphics window) {
 		if (ammo.size() > 0) {
 			for (Ammo a : ammo) {
 				a.draw(window);
@@ -27,7 +27,7 @@ public class Bullets {
 		}
 	}
 
-	public void moveEmAll() {
+	public void move_bullets() {
 		if (ammo.size() > 0) {
 			for (Ammo a : ammo) {
 				a.move("UP");
@@ -35,7 +35,7 @@ public class Bullets {
 		}
 	}
 
-	public void cleanEmUp() {
+	public void clean_bullets() {
 		if (ammo.size() > 0) {
 			for (int i = 0; i < ammo.size(); i++) {
 				if (!ammo.get(i).isAlive()) {

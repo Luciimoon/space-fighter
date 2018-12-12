@@ -28,7 +28,7 @@ public class AlienHorde {
 		aliens.add(al);
 	}
 
-	public void drawEmAll(Graphics window) {
+	public void draw_aliens(Graphics window) {
 		if (getSize() > 0) {
 			for (Alien a : aliens) {
 				a.draw(window);
@@ -49,7 +49,7 @@ public class AlienHorde {
 		}
 	}
 
-	public void moveEmAll() {
+	public void move_aliens() {
 		if (getSize() > 0) {
 			if (aliens.get(0).getX() <= 0) {
 				right = true;
@@ -83,13 +83,13 @@ public class AlienHorde {
 
 	}
 
-	public void removeDeadOnes(Bullets shots) {
+	public void aliens_shot(Bullets shots) {
 		if (getSize() > 0) {
 			for (int i = 0; i < getSize(); i++) {
 				if (shots.getSize() > 0) {
 					for (int j = 0; j < shots.getSize(); j++) {
 						if (shots.getAmmo(j).didCollide(aliens.get(i))) {
-							score += 10;
+							score += 5;
 							aliens.remove(i);
 							i = 0;
 							break;

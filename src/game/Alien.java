@@ -12,6 +12,7 @@ public class Alien extends MovingThing
 	private int speed;
 	private Image image;
 
+
 	public Alien()
 	{
 		this(50,10,40,40,1);

@@ -1,20 +1,20 @@
 package game;
 
+import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Canvas;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.Image;
 
 import static java.lang.Character.*;
 
 import java.awt.image.BufferedImage;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Random;
 
 public class OuterSpace extends Canvas implements KeyListener, Runnable {
@@ -39,11 +39,14 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 	private boolean[] keys;
 	private BufferedImage back;
 
-	public OuterSpace() {
-		setBackground(Color.magenta);
+
+
+
+    public OuterSpace() {
+		setBackground(Color.black);
 		keys = new boolean[5];
 		ship = new Ship(350, 400, 100, 100, 3);
-		round = 0;
+		round = 1;
 
 		alienSpeed = 1;
 		alien = true;
@@ -52,8 +55,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 		game = true;
 		lazer = false;
 		ran = new Random();
-		a = new Ammo((ship.getX() + ship.getWidth() / 2) - 5, ship.getY() - 5,
-				5);
+		a = new Ammo((ship.getX() + ship.getWidth() / 2) - 5, ship.getY() - 5, 5);
 		horde = new AlienHorde(11);
 		shots = new Bullets();
 		this.addKeyListener(this);
@@ -76,7 +78,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 		Graphics graphToBack = back.createGraphics();
 		graphToBack.setColor(Color.BLUE);
 		graphToBack.drawString("StarFighter ", 25, 50);
-		graphToBack.setColor(Color.magenta);
+		graphToBack.setColor(new Color(51, 204, 255));
 		graphToBack.fillRect(0, 0, 800, 600);
 		if (!horde.endGame(ship) || round == 0) {
 			if (keys[0] == true) {
@@ -105,13 +107,13 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 						ship.getY() - 5, 5));
 
 			}
-			shots.drawEmAll(graphToBack);
-			shots.moveEmAll();
-			horde.drawEmAll(graphToBack);
+			shots.draw_bullets(graphToBack);
+			shots.move_bullets();
+			horde.draw_aliens(graphToBack);
 			ship.draw(graphToBack);
-			horde.moveEmAll();
-			horde.removeDeadOnes(shots);
-			shots.cleanEmUp();
+			horde.move_aliens();
+			horde.aliens_shot(shots);
+			shots.clean_bullets();
 			if (horde.getSize() == 0) {
 				if (af1 && af2) {
 					r = ran.nextInt(1);
@@ -131,26 +133,19 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 
 			}
 		} else {
-			graphToBack.setColor(Color.RED);
-			graphToBack.setFont(new Font(Font.SANS_SERIF, 250, 250));
-			graphToBack.drawString("GAME", 25, 300 - 40);
-			graphToBack.drawString("OVER", 25, 510 - 40);
+			graphToBack.setColor(Color.magenta);
+			graphToBack.setFont(new Font(Font.MONOSPACED, 150, 150));
+			graphToBack.drawString("you", 250, 300 - 40);
+			graphToBack.drawString("ded", 250, 510 - 40);
 			shots.end();
-			shots.drawEmAll(graphToBack);
-			horde.drawEmAll(graphToBack);
+			shots.draw_bullets(graphToBack);
+			horde.draw_aliens(graphToBack);
 			ship.draw(graphToBack);
 		}
 		graphToBack.setFont(new Font(Font.SANS_SERIF, 24, 24));
 		graphToBack.setColor(Color.WHITE);
 		if (round == 0) {
 			graphToBack.drawString("Warm-Up", 335, 30);
-			/*graphToBack.drawString("LAZER AMMO: " + lazerAmmo, 550, 30);
-			if (lazer == true) {
-				graphToBack.drawString("bullets = spacebar | lazer beam = v | 42 = god mode", 110, 530);
-			} else {
-				graphToBack.drawString("bullets = spacebar | lazer beam = v",
-						191, 530);
-			}*/
 			horde.setScore(0);
 			if (horde.endGame(ship)) {
 				graphToBack.setFont(new Font(Font.SANS_SERIF, 50, 50));
@@ -218,10 +213,7 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable {
 		if (e.getKeyCode() == KeyEvent.VK_2) {
 			af2 = false;
 		}
-		// if (e.getKeyCode() == KeyEvent.VK_SPACE)
-		// {
-		// keys[4] = false;
-		// }
+
 		if (e.getKeyCode() == KeyEvent.VK_V) {
 			lazer = false;
 		}
